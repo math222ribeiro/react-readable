@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Post from "./Post";
 import { connect } from 'react-redux';
-import {fetchPostsRequest, loadingPosts} from "../actions/index";
+import {fetchPostsRequest} from "../actions/index";
 import {Loading} from "./Loading";
 
 class Posts extends Component {

@@ -28,10 +28,10 @@ class Post extends Component {
         </p>
 
         <div className="post-buttons">
-          <img src={UpVoteButton} style={{marginLeft: '0px'}} onClick={() => {this.handleVote("upVote")}} />
-          <img src={DownVoteButton} onClick={() => {this.handleVote("downVote")}}/>
-          <img src={EditButton} />
-          <img src={DeleteButton} />
+          <img src={UpVoteButton} style={{marginLeft: '0px'}} onClick={() => {this.handleVote("upVote")}} alt="Up Vote"/>
+          <img src={DownVoteButton} onClick={() => {this.handleVote("downVote")}} alt="Down Vote"/>
+          <img src={EditButton} alt="Edit Post"/>
+          <img src={DeleteButton} alt="Delete Post"/>
         </div>
       </div>
     )

@@ -6,12 +6,12 @@ class NavBar extends Component {
     return (
       <header className="nav">
         <div className="logo-container">
-          <a href="#">Readable</a>
+          <a href="">Readable</a>
         </div>
 
         <div className="new-btn">
-          <a href="#">
-            <img src={PlusSign}/>
+          <a href="">
+            <img src={PlusSign} alt="New Post"/>
             <span className="new-text">New</span>
           </a>
         </div>
