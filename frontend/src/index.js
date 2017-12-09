@@ -7,7 +7,7 @@ import 'normalize.css';
 import './css/index.css'
 import reducer from "./reducers/index";
 import thunk from 'redux-thunk'
-import {fetchPosts} from "./utils/api";
+// import {fetchPosts, votePostRequest} from "./utils/api";
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -37,12 +37,15 @@ const store = createStore(
 //   .then((categories) => {
 //   console.log(categories)
 //   });
-fetchPosts()
-  .then(res => res.json())
-  .then((posts) => {
-    console.log(posts);
-  });
-
+// fetchPosts()
+//   .then(res => res.json())
+//   .then((posts) => {
+//     console.log(posts);
+//   });
+//
+// votePostRequest("8xf0y6ziyjabvozdd253nd", "upVote")
+//   .then(res => (res.json()))
+//   .then(res=> console.log(res));
 
 ReactDOM.render(
   <Provider store={store}>

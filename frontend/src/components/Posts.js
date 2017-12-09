@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import Post from "./Post";
 import { connect } from 'react-redux';
-import {fetchPostsAction} from "../actions/index";
+import {fetchPostsRequest, loadingPosts} from "../actions/index";
 import {Loading} from "./Loading";
 
 class Posts extends Component {
   componentDidMount() {
-    this.props.fetchPosts()
+    this.props.fetchPosts();
   }
 
   render() {
@@ -36,7 +36,7 @@ function mapStateToProps({ posts }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchPosts: () => dispatch(fetchPostsAction())
+    fetchPosts: () => dispatch(fetchPostsRequest()),
   }
 }
 

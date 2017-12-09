@@ -1,14 +1,15 @@
-import {fetchCategories, fetchPosts} from "../utils/api";
+import {fetchCategories, fetchPosts, votePostRequest} from "../utils/api";
 
 export const CATEGORIES_LOADED = "CATEGORIES_LOADED";
 export const POSTS_LOADED = "POSTS_LOADED";
+export const VOTE_POST = "VOTE_POST";
 
 export const loadCategories = categories => ({
   type: CATEGORIES_LOADED,
   categories
 });
 
-export const fetchCategoriesAction = () => dispatch => (
+export const fetchCategoriesRequest = () => dispatch => (
   fetchCategories()
     .then(res => res.json())
     .then(data => dispatch(loadCategories(data.categories)))
@@ -19,9 +20,22 @@ export const loadPosts = posts => ({
   posts
 });
 
-export const fetchPostsAction = () => dispatch => (
+export const fetchPostsRequest = () => dispatch => (
   fetchPosts()
     .then(res => res.json())
     .then(posts => dispatch(loadPosts(posts)))
 );
+
+export const votePostAction = (post) => ({
+  type: VOTE_POST,
+  post,
+});
+
+
+export const votePostRequestAction = (id, option) => dispatch => (
+  votePostRequest(id, option)
+    .then(res => res.json())
+    .then((post) => dispatch(votePostAction(post)))
+);
+
 

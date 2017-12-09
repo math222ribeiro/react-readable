@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {fetchCategoriesAction} from "../actions/index";
+import {fetchCategoriesRequest} from "../actions/index";
 import {Loading} from "./Loading";
 
 class FilterBar extends Component {
@@ -45,7 +45,7 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCategories: () => dispatch(fetchCategoriesAction())
+    fetchCategories: () => dispatch(fetchCategoriesRequest())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FilterBar);

@@ -1,9 +1,11 @@
 import {
   CATEGORIES_LOADED,
-  POSTS_LOADED
+  POSTS_LOADED,
+  VOTE_POST
 } from '../actions';
 
 import {combineReducers} from 'redux';
+import {LOADING_POSTS} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -38,6 +40,12 @@ function posts(state = postsInitialState, action) {
         ...state,
         all: posts,
         loaded: true
+      };
+    case VOTE_POST:
+      const {post} = action;
+      return {
+        ...state,
+        all: [...state.all.filter((aPost) => post.id !== aPost.id), post]
       };
     default:
       return state;
