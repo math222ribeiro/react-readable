@@ -5,7 +5,6 @@ import {
 } from '../actions';
 
 import {combineReducers} from 'redux';
-import {LOADING_POSTS} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
