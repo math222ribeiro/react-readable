@@ -30,7 +30,7 @@ class Posts extends Component {
 function mapStateToProps({ posts }) {
   return {
     posts: posts.all,
-    postsLoaded: posts.postsLoaded
+    postsLoaded: posts.loaded
   }
 }
 

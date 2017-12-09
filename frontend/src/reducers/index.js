@@ -7,11 +7,11 @@ import {combineReducers} from 'redux';
 
 const categoriesInitialState = {
   all: [],
-  categoriesLoaded: false,
+  loaded: false,
 };
 const postsInitialState = {
   all: [],
-  postsLoaded: false
+  loaded: false
 };
 
 function categories(state = categoriesInitialState, action) {
@@ -21,7 +21,7 @@ function categories(state = categoriesInitialState, action) {
       return {
         ...state,
         all: categories,
-        categoriesLoaded: true
+        loaded: true
      };
 
     default:
@@ -37,7 +37,7 @@ function posts(state = postsInitialState, action) {
       return {
         ...state,
         all: posts,
-        postsLoaded: true
+        loaded: true
       };
     default:
       return state;
