@@ -36,10 +36,10 @@ class FilterBar extends Component {
   }
 }
 
-function mapStateToProps({ categories, categoriesLoaded }) {
+function mapStateToProps({ categories }) {
   return {
-    categories,
-    categoriesLoaded
+    categories: categories.all,
+    categoriesLoaded: categories.categoriesLoaded
   }
 }
 

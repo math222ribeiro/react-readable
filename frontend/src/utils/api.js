@@ -3,3 +3,5 @@ let headers = new Headers();
 headers.append('Authorization', 'auth');
 
 export const fetchCategories = () => (fetch(api + '/categories', {headers}));
+
+export const fetchPosts = () => (fetch(api + '/posts', {headers}));

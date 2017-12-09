@@ -6,16 +6,17 @@ import DeleteButton from '../assets/Delete-Button.png';
 
 class Post extends Component {
   render() {
+    const {post} = this.props;
     return (
       <div className="post">
-        <h2 className="post-title">Super Awesome Post Title</h2>
-        <h4 className="post-author">Matheus Ribeiro</h4>
+        <h2 className="post-title">{post.title}</h2>
+        <h4 className="post-author">{post.author}</h4>
         <p className="post-body">
-          Ao contrário do que se acredita, Lorem Ipsum não é simplesmente um texto randômico. Com mais de 2000 anos, suas raízes podem ser encontradas em uma obra de literatura latina clássica datada de 45 AC. Richard McClintock, um professor de latim do Hampden-Sydney College na Virginia, pesquisou uma das mais obscuras palavras em latim, consectetur, oriunda de uma passagem de Lorem Ipsum, e, procurando por entre citações da palavra na literatura clássica, descobriu a sua indubitável origem.
+          {post.body}
         </p>
 
         <p className="post-vc">
-          103 Votes - 900 Comments
+          {post.voteScore} Votes - {post.commentCount} Comments
         </p>
 
         <div className="post-buttons">

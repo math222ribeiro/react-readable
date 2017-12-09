@@ -1,19 +1,26 @@
 import {
-  LOAD_CATEGORIES
+  CATEGORIES_LOADED,
+  POSTS_LOADED
 } from '../actions';
 
-const initialState = {
-  categories: [],
-  categoriesLoaded: false
+import {combineReducers} from 'redux';
+
+const categoriesInitialState = {
+  all: [],
+  categoriesLoaded: false,
+};
+const postsInitialState = {
+  all: [],
+  postsLoaded: false
 };
 
-function reducer(state = initialState, action) {
+function categories(state = categoriesInitialState, action) {
   switch (action.type) {
-    case LOAD_CATEGORIES:
+    case CATEGORIES_LOADED:
       const { categories } = action;
       return {
         ...state,
-        categories: categories,
+        all: categories,
         categoriesLoaded: true
      };
 
@@ -23,4 +30,21 @@ function reducer(state = initialState, action) {
   }
 }
 
-export default reducer;
+function posts(state = postsInitialState, action) {
+  switch (action.type) {
+    case POSTS_LOADED:
+      const { posts } = action;
+      return {
+        ...state,
+        all: posts,
+        postsLoaded: true
+      };
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  posts,
+  categories
+});
