@@ -124,3 +124,16 @@ select {
   box-shadow: 0 2px 10px rgba(0, 0, 0, .5);
   transition: box-shadow 0.3s ease-in-out;
 }
+
+.modal-btn {
+  background: black;
+  color: white;
+  padding: 15px;
+  float: right;
+  margin: 25px;
+}
+
+.destructive {
+  background: red;
+  float: left;
+}

@@ -1,7 +1,8 @@
 import {
   CATEGORIES_LOADED,
   POSTS_LOADED,
-  VOTE_POST
+  VOTE_POST,
+  POST_DELETED
 } from '../actions';
 import {filterPostsBy, sortPostBy} from '../utils/arrayutil';
 import {combineReducers} from 'redux';
@@ -76,6 +77,17 @@ function posts(state = postsInitialState, action) {
         filteredPosts: filterPostsBy(
           category,
           sortPostBy(state.sortedBy, state.all.slice())
+        )
+      };
+    case POST_DELETED:
+      const {id} = action;
+      let array = state.all.filter(post => post.id !== id);
+      return {
+        ...state,
+        all: array,
+        filteredPosts: filterPostsBy(
+          state.categorySelected,
+          sortPostBy(state.sortedBy, array.slice())
         )
       };
     default:

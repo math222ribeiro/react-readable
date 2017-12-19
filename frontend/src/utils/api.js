@@ -19,3 +19,10 @@ export const votePostRequest = (id, option) => (fetch(api + '/posts/' + id, {
     option: option
   })
 }));
+
+export const deletePostRequest = (id) => (
+  fetch(api + '/posts/' + id, {
+    headers: headers,
+    method: "DELETE"
+  })
+);

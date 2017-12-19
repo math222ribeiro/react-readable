@@ -8,6 +8,8 @@ export function sortPostBy(type, posts) {
       return posts.sort((a, b) => b.voteScore - a.voteScore);
     case "lowestVote":
       return posts.sort((a, b) => a.voteScore - b.voteScore);
+    default:
+      return [];
   }
 }
 
