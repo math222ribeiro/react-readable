@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import Post from "./Post";
 import { connect } from 'react-redux';
-import {fetchPostsRequest} from "../actions/index";
+import {changeCategory, fetchPostsRequest} from "../actions/index";
 import {Loading} from "./Loading";
 
 class Posts extends Component {
   componentDidMount() {
     this.props.fetchPosts();
+    let route = this.props.match.params.category;
+    if (route)
+      this.props.changeCategory(route);
   }
 
   render() {
@@ -37,6 +40,7 @@ function mapStateToProps({ posts }) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchPosts: () => dispatch(fetchPostsRequest()),
+    changeCategory: (newCategory) => dispatch(changeCategory(newCategory))
   }
 }
 

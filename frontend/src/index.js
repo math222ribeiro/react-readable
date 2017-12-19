@@ -7,6 +7,7 @@ import 'normalize.css';
 import './css/index.css'
 import reducer from "./reducers/index";
 import thunk from 'redux-thunk'
+import {BrowserRouter} from 'react-router-dom';
 // import {fetchPosts, votePostRequest} from "./utils/api";
 
 
@@ -49,7 +50,9 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>,
   document.getElementById('root')
 );

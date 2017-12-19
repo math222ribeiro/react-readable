@@ -7,7 +7,6 @@ import {capitalizeFirstLetter} from "../utils/arrayutil";
 class FilterBar extends Component {
   state = {
     order: 'newest',
-    category: "all"
   };
 
   handleChangeSortSelect = (event) => {
@@ -18,8 +17,8 @@ class FilterBar extends Component {
 
   handleChangeCategoriesSelect = (event) => {
     const selectedCategory = event.target.value;
-    this.setState({category: selectedCategory});
     this.props.changeCategory(selectedCategory);
+    this.props.history.push('/' + selectedCategory);
   };
 
   componentDidMount() {
@@ -33,7 +32,7 @@ class FilterBar extends Component {
       <div className="filter-container">
         <span className="matches-number">{posts.length}</span> matches
         {categoriesLoaded ? (
-          <select className="category-select" value={this.state.category} onChange={this.handleChangeCategoriesSelect}>
+          <select className="category-select" value={this.props.categorySelected} onChange={this.handleChangeCategoriesSelect}>
             <option value="all">All</option>
             {categories.map((category) => (
               <option value={category.name} key={category.name}>{capitalizeFirstLetter(category.name)}</option>
@@ -59,7 +58,8 @@ function mapStateToProps({ categories, posts }) {
   return {
     categories: categories.all,
     categoriesLoaded: categories.loaded,
-    posts: posts.filteredPosts
+    posts: posts.filteredPosts,
+    categorySelected: posts.categorySelected
   }
 }
 
