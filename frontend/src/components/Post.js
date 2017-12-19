@@ -5,6 +5,7 @@ import EditButton from '../assets/Edit-Button.png';
 import DeleteButton from '../assets/Delete-Button.png';
 import {connect} from 'react-redux';
 import {votePostRequestAction} from "../actions/index";
+
 class Post extends Component {
   handleVote(option) {
     this.props.vote(

@@ -3,8 +3,9 @@ import {
   POSTS_LOADED,
   VOTE_POST
 } from '../actions';
-
+import {sortPostBy} from '../utils/arrayutil';
 import {combineReducers} from 'redux';
+import {CHANGE_FILTER} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -12,7 +13,8 @@ const categoriesInitialState = {
 };
 const postsInitialState = {
   all: [],
-  loaded: false
+  loaded: false,
+  sortedBy: "newest"
 };
 
 function categories(state = categoriesInitialState, action) {
@@ -37,14 +39,21 @@ function posts(state = postsInitialState, action) {
       const { posts } = action;
       return {
         ...state,
-        all: posts,
+        all: sortPostBy(state.sortedBy, posts),
         loaded: true
       };
     case VOTE_POST:
       const {post} = action;
       return {
         ...state,
-        all: [...state.all.filter((aPost) => post.id !== aPost.id), post]
+        all: sortPostBy(state.sortedBy, [...state.all.filter((aPost) => post.id !== aPost.id), post])
+      };
+    case CHANGE_FILTER:
+      const {filterName} = action;
+      return {
+        ...state,
+        sortedBy: filterName,
+        all: sortPostBy(filterName, state.all.slice())
       };
     default:
       return state;

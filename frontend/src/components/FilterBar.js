@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {fetchCategoriesRequest} from "../actions/index";
+import {changeFilter, fetchCategoriesRequest} from "../actions/index";
 import {Loading} from "./Loading";
 
 class FilterBar extends Component {
+  state = {
+    filter: 'newest'
+  };
+
+  handleChange = (event) => {
+    const newFilter = event.target.value;
+    this.setState({filter: newFilter});
+    this.props.changeFilter(newFilter);
+  };
+
   componentDidMount() {
     this.props.fetchCategories()
   }
@@ -24,11 +34,11 @@ class FilterBar extends Component {
           <Loading/>
         )}
 
-        <select className="sort-select">
-          <option>Newest</option>
-          <option>Oldest</option>
-          <option>Vote Score: Highest</option>
-          <option>Vote Score: Lowest</option>
+        <select className="sort-select" value={this.state.filter} onChange={this.handleChange}>
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
+          <option value="highestVote">Vote Score: Highest</option>
+          <option value="lowestVote">Vote Score: Lowest</option>
         </select>
 
       </div>
@@ -45,7 +55,8 @@ function mapStateToProps({ categories }) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchCategories: () => dispatch(fetchCategoriesRequest())
+    fetchCategories: () => dispatch(fetchCategoriesRequest()),
+    changeFilter: (filterName) => dispatch(changeFilter(filterName))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FilterBar);
