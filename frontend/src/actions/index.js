@@ -3,7 +3,8 @@ import {fetchCategories, fetchPosts, votePostRequest} from "../utils/api";
 export const CATEGORIES_LOADED = "CATEGORIES_LOADED";
 export const POSTS_LOADED = "POSTS_LOADED";
 export const VOTE_POST = "VOTE_POST";
-export const CHANGE_FILTER = "CHANGE_FILTER";
+export const CHANGE_ORDER = "CHANGE_ORDER";
+export const CHANGE_CATEGORY = "CHANGE_CATEGORY";
 
 export const loadCategories = categories => ({
   type: CATEGORIES_LOADED,
@@ -39,7 +40,12 @@ export const votePostRequestAction = (id, option) => dispatch => (
     .then((post) => dispatch(votePostAction(post)))
 );
 
-export const changeFilter = (filterName) => ({
-  type: CHANGE_FILTER,
-  filterName
+export const changeSortType = (sortType) => ({
+  type: CHANGE_ORDER,
+  sortType
+});
+
+export const changeCategory = (category) => ({
+  type: CHANGE_CATEGORY,
+  category
 });

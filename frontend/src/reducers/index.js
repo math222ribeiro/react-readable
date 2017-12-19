@@ -3,9 +3,9 @@ import {
   POSTS_LOADED,
   VOTE_POST
 } from '../actions';
-import {sortPostBy} from '../utils/arrayutil';
+import {filterPostsBy, sortPostBy} from '../utils/arrayutil';
 import {combineReducers} from 'redux';
-import {CHANGE_FILTER} from "../actions/index";
+import {CHANGE_CATEGORY, CHANGE_ORDER} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -13,8 +13,10 @@ const categoriesInitialState = {
 };
 const postsInitialState = {
   all: [],
+  filteredPosts: [],
   loaded: false,
-  sortedBy: "newest"
+  sortedBy: "newest",
+  categorySelected: "all"
 };
 
 function categories(state = categoriesInitialState, action) {
@@ -26,7 +28,6 @@ function categories(state = categoriesInitialState, action) {
         all: categories,
         loaded: true
      };
-
     default:
       return state;
 
@@ -39,21 +40,43 @@ function posts(state = postsInitialState, action) {
       const { posts } = action;
       return {
         ...state,
-        all: sortPostBy(state.sortedBy, posts),
+        all: posts,
+        filteredPosts: filterPostsBy(
+          state.categorySelected,
+          sortPostBy(state.sortedBy, posts)
+        ),
         loaded: true
       };
     case VOTE_POST:
       const {post} = action;
+      const newArray = [...state.all.filter((aPost) => post.id !== aPost.id), post];
       return {
         ...state,
-        all: sortPostBy(state.sortedBy, [...state.all.filter((aPost) => post.id !== aPost.id), post])
+        all: newArray,
+        filteredPosts: filterPostsBy(
+          state.categorySelected,
+          sortPostBy(state.sortedBy, newArray)
+        )
       };
-    case CHANGE_FILTER:
-      const {filterName} = action;
+    case CHANGE_ORDER:
+      const {sortType} = action;
       return {
         ...state,
-        sortedBy: filterName,
-        all: sortPostBy(filterName, state.all.slice())
+        sortedBy: sortType,
+        filteredPosts: filterPostsBy(
+          state.categorySelected,
+          sortPostBy(sortType, state.all.slice())
+        )
+      };
+    case CHANGE_CATEGORY:
+      const {category} = action;
+      return {
+        ...state,
+        categorySelected: category,
+        filteredPosts: filterPostsBy(
+          category,
+          sortPostBy(state.sortedBy, state.all.slice())
+        )
       };
     default:
       return state;

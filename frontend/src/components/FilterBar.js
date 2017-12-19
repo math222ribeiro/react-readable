@@ -1,17 +1,25 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import {changeFilter, fetchCategoriesRequest} from "../actions/index";
+import {changeCategory, changeSortType, fetchCategoriesRequest} from "../actions/index";
 import {Loading} from "./Loading";
+import {capitalizeFirstLetter} from "../utils/arrayutil";
 
 class FilterBar extends Component {
   state = {
-    filter: 'newest'
+    order: 'newest',
+    category: "all"
   };
 
-  handleChange = (event) => {
-    const newFilter = event.target.value;
-    this.setState({filter: newFilter});
-    this.props.changeFilter(newFilter);
+  handleChangeSortSelect = (event) => {
+    const type = event.target.value;
+    this.setState({order: type});
+    this.props.changeOrder(type);
+  };
+
+  handleChangeCategoriesSelect = (event) => {
+    const selectedCategory = event.target.value;
+    this.setState({category: selectedCategory});
+    this.props.changeCategory(selectedCategory);
   };
 
   componentDidMount() {
@@ -19,22 +27,23 @@ class FilterBar extends Component {
   }
 
   render() {
-    let {categoriesLoaded, categories} = this.props;
+    let {categoriesLoaded, categories, posts} = this.props;
     return (
 
       <div className="filter-container">
-        <span className="matches-number">0</span> matches
+        <span className="matches-number">{posts.length}</span> matches
         {categoriesLoaded ? (
-          <select className="category-select">
+          <select className="category-select" value={this.state.category} onChange={this.handleChangeCategoriesSelect}>
+            <option value="all">All</option>
             {categories.map((category) => (
-              <option value={category.name} key={category.name}>{category.name}</option>
+              <option value={category.name} key={category.name}>{capitalizeFirstLetter(category.name)}</option>
             ))}
           </select>
         ) : (
           <Loading/>
         )}
 
-        <select className="sort-select" value={this.state.filter} onChange={this.handleChange}>
+        <select className="sort-select" value={this.state.filter} onChange={this.handleChangeSortSelect}>
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
           <option value="highestVote">Vote Score: Highest</option>
@@ -46,17 +55,19 @@ class FilterBar extends Component {
   }
 }
 
-function mapStateToProps({ categories }) {
+function mapStateToProps({ categories, posts }) {
   return {
     categories: categories.all,
-    categoriesLoaded: categories.loaded
+    categoriesLoaded: categories.loaded,
+    posts: posts.filteredPosts
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchCategories: () => dispatch(fetchCategoriesRequest()),
-    changeFilter: (filterName) => dispatch(changeFilter(filterName))
+    changeOrder: (sortType) => dispatch(changeSortType(sortType)),
+    changeCategory: (newCategory) => dispatch(changeCategory(newCategory))
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(FilterBar);

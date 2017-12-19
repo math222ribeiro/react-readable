@@ -10,3 +10,13 @@ export function sortPostBy(type, posts) {
       return posts.sort((a, b) => a.voteScore - b.voteScore);
   }
 }
+
+export function filterPostsBy(category, posts) {
+  if (category === "all") return posts;
+
+  return posts.filter((post) => post.category === category);
+}
+
+export function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}

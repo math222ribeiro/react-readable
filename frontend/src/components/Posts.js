@@ -29,7 +29,7 @@ class Posts extends Component {
 
 function mapStateToProps({ posts }) {
   return {
-    posts: posts.all,
+    posts: posts.filteredPosts,
     postsLoaded: posts.loaded
   }
 }
