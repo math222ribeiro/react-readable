@@ -8,6 +8,7 @@ import './css/index.css'
 import reducer from "./reducers/index";
 import thunk from 'redux-thunk'
 import {BrowserRouter} from 'react-router-dom';
+// import {getPostComments} from "./utils/api";
 // import {deletePostRequest} from "./utils/api";
 // import {fetchPosts, votePostRequest} from "./utils/api";
 
@@ -20,6 +21,10 @@ const store = createStore(
     applyMiddleware(thunk)
   )
 );
+
+// getPostComments('8xf0y6ziyjabvozdd253nd')
+//   .then(res => res.json())
+//   .then(res => console.log(res));
 
 ReactDOM.render(
   <Provider store={store}>

@@ -69,12 +69,12 @@ class Post extends Component {
         className="post"
         onClick={this.showDetails}
         style={{
-          cursor: 'pointer'
+          cursor: !detailView ? 'pointer' : 'default'
         }}
       >
         <h2 className="post-title">{post.title}</h2>
         <h4 className="post-author">{post.author} {
-          detailView ? (<span className="date">{new Date(post.timestamp).toDateString()}</span>) : (" ")
+          detailView ? (<span className="date"> - {new Date(post.timestamp).toDateString()}</span>) : (" ")
         }</h4>
         <p className="post-body">
           {post.body}
@@ -90,6 +90,7 @@ class Post extends Component {
           <img src={EditButton} alt="Edit Post"/>
           <img src={DeleteButton} alt="Delete Post" onClick={this.openModal}/>
         </div>
+
         <Modal
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
@@ -98,7 +99,6 @@ class Post extends Component {
           style={this.customStyles}
           ariaHideApp={false}
         >
-
           <h2 ref={title => this.title = title}>Hello</h2>
           <button className="modal-btn destructive" onClick={() => {this.closeModal("delete")}}>DELETE</button>
           <button className="modal-btn" onClick={() => {this.closeModal("cancel")}}>CANCEL</button>

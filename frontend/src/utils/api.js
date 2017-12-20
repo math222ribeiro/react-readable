@@ -28,3 +28,16 @@ export const deletePostRequest = (id) => (
 );
 
 export const getPost = (id) => (fetch(api + '/posts/' + id, {headers}));
+
+export const getPostComments = (postId) => (fetch(api + '/posts/' + postId + '/comments', {headers}));
+
+export const voteCommentRequest = (id, option) => (fetch(api + '/comments/' + id, {
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  method: "POST",
+  body: JSON.stringify({
+    option: option
+  })
+}));

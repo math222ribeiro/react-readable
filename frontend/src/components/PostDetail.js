@@ -2,13 +2,15 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Post from './Post';
 import {getPost} from "../utils/api";
+import CommentSection from "./CommentSection";
+import {setParentPost} from "../actions/index";
 
 class PostDetail extends Component {
   state = {
     loading: true,
-    post: {}
   };
 
+  error = false;
   componentDidMount() {
     const {post_id} = this.props.match.params;
     getPost(post_id)
@@ -16,8 +18,11 @@ class PostDetail extends Component {
       .then(post => {
           this.setState({
             loading: false,
-            post: post
-          })
+          });
+          this.error = post.error;
+
+          if (!this.error)
+            this.props.setPost(post);
         }
       )
   }
@@ -30,10 +35,19 @@ class PostDetail extends Component {
         {this.state.loading ? (
           "Loading"
         ) : (
-          this.state.post.error || this.state.post.category !== category ? (
+          this.error || this.props.post.category !== category ? (
             "Invalid Post"
           ) : (
-            <Post post={this.state.post} detailView history={this.props.history}/>
+            <div>
+              <h1
+                style={{
+                  padding: '20px',
+              }}>
+                Post Detail
+              </h1>
+              <Post post={this.props.post} detailView history={this.props.history}/>
+              <CommentSection loading={this.state.loading} error={this.error}/>
+            </div>
           )
 
 
@@ -43,10 +57,16 @@ class PostDetail extends Component {
   }
 }
 
-function mapStateToProps({posts}) {
+function mapStateToProps({comments}) {
   return {
-    posts: posts.all
+    post: comments.parentPost
   }
 }
 
-export default connect(mapStateToProps, null)(PostDetail);
+function mapDispatchToProps(dispatch) {
+  return {
+    setPost: (post) => dispatch(setParentPost(post))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostDetail);

@@ -2,11 +2,12 @@ import {
   CATEGORIES_LOADED,
   POSTS_LOADED,
   VOTE_POST,
-  POST_DELETED
+  POST_DELETED,
+  COMMENTS_LOADED
 } from '../actions';
 import {filterPostsBy, sortPostBy} from '../utils/arrayutil';
 import {combineReducers} from 'redux';
-import {CHANGE_CATEGORY, CHANGE_ORDER} from "../actions/index";
+import {CHANGE_CATEGORY, CHANGE_ORDER, SET_PARENT_POST, VOTE_COMMENT} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -18,6 +19,11 @@ const postsInitialState = {
   loaded: false,
   sortedBy: "newest",
   categorySelected: "all"
+};
+
+const postCommentsInitialState = {
+  all: [],
+  parentPost: {}
 };
 
 function categories(state = categoriesInitialState, action) {
@@ -95,7 +101,34 @@ function posts(state = postsInitialState, action) {
   }
 }
 
+function comments(state = postCommentsInitialState, action) {
+  switch (action.type) {
+    case COMMENTS_LOADED:
+      const {comments} = action;
+      return {
+        ...state,
+        all: sortPostBy("newest", comments)
+      };
+
+    case SET_PARENT_POST:
+      const {post} = action;
+      return {
+        ...state,
+        parentPost: post
+      };
+
+    case VOTE_COMMENT:
+      const {comment} = action;
+      return {
+        ...state,
+        all: sortPostBy("newest", [...state.all.filter((aComment) => comment.id !== aComment.id), comment])
+      };
+    default:
+      return state;
+  }
+}
 export default combineReducers({
   posts,
-  categories
+  categories,
+  comments
 });
