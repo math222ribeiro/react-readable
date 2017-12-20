@@ -19,7 +19,7 @@ class Posts extends Component {
         {
           postsLoaded ? (
             posts.map(post => (
-              <Post key={post.id} post={post}/>
+              <Post key={post.id} post={post} history={this.props.history}/>
             ))
           ) : (
             <Loading/>

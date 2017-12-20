@@ -12,7 +12,10 @@ class Post extends Component {
     modalIsOpen: false
   };
 
+  buttonClicked = false;
+
   handleVote(option) {
+    this.buttonClicked = true;
     this.props.vote(
       this.props.post.id,
       option
@@ -24,7 +27,14 @@ class Post extends Component {
     }
   }
 
+  showDetails = () => {
+    const {detailView, history, post} = this.props;
+    if (!detailView && !this.buttonClicked) history.push(`/${post.category}/${post.id}`);
+    this.buttonClicked = false
+  };
+
   openModal = () => {
+    this.buttonClicked = true;
     this.setState({modalIsOpen: true});
   };
 
@@ -33,6 +43,7 @@ class Post extends Component {
   };
 
   closeModal = (option) => {
+    this.buttonClicked = true;
     this.setState({modalIsOpen: false});
     if (option === 'delete') {
       this.props.deletePost(this.props.post.id);
@@ -54,7 +65,13 @@ class Post extends Component {
   render() {
     const {post, detailView} = this.props;
     return (
-      <div className="post">
+      <div
+        className="post"
+        onClick={this.showDetails}
+        style={{
+          cursor: 'pointer'
+        }}
+      >
         <h2 className="post-title">{post.title}</h2>
         <h4 className="post-author">{post.author} {
           detailView ? (<span className="date">{new Date(post.timestamp).toDateString()}</span>) : (" ")
@@ -67,7 +84,7 @@ class Post extends Component {
           {post.voteScore} Votes - {post.commentCount} Comments
         </p>
 
-        <div className="post-buttons">
+        <div className="post-buttons" style={{zIndex: 10}}>
           <img src={UpVoteButton} style={{marginLeft: '0px'}} onClick={() => {this.handleVote("upVote")}} alt="Up Vote"/>
           <img src={DownVoteButton} onClick={() => {this.handleVote("downVote")}} alt="Down Vote"/>
           <img src={EditButton} alt="Edit Post"/>

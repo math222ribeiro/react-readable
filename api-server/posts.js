@@ -24,6 +24,17 @@ const defaultData = {
     voteScore: -5,
     deleted: false,
     commentCount: 0
+  },
+  "6n123k3ym7mf5p33lnez": {
+    id: '6n123k3ym7mf5p33lnez',
+    timestamp: Date.now(),
+    title: 'Hello World',
+    body: 'Udacity is the best place to learn react.',
+    author: 'maTR',
+    category: 'udacity',
+    voteScore: 10,
+    deleted: false,
+    commentCount: 0
   }
 }
 

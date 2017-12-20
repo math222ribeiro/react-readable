@@ -21,6 +21,16 @@ const store = createStore(
   )
 );
 
+ReactDOM.render(
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById('root')
+);
+
+
 // fetchCategories()
 //   .then(res => res.json())
 //   .then(categories => store.dispatch(loadCategories(categories.categories)));
@@ -52,12 +62,3 @@ const store = createStore(
 // deletePostRequest('8xf0y6ziyjabvozdd253nd')
 //   .then(res => res.json())
 //   .then(res => console.log(res));
-
-ReactDOM.render(
-  <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </Provider>,
-  document.getElementById('root')
-);
