@@ -26,3 +26,5 @@ export const deletePostRequest = (id) => (
     method: "DELETE"
   })
 );
+
+export const getPost = (id) => (fetch(api + '/posts/' + id, {headers}));

@@ -16,7 +16,12 @@ class Post extends Component {
     this.props.vote(
       this.props.post.id,
       option
-    )
+    );
+
+    if (this.props.detailView) {
+      this.props.post.voteScore += option === "upVote" ? 1 : -1;
+      this.forceUpdate()
+    }
   }
 
   openModal = () => {
@@ -30,7 +35,8 @@ class Post extends Component {
   closeModal = (option) => {
     this.setState({modalIsOpen: false});
     if (option === 'delete') {
-      this.props.deletePost(this.props.post.id)
+      this.props.deletePost(this.props.post.id);
+      if (this.props.detailView) this.props.history.push('/');
     }
   };
 
@@ -46,11 +52,13 @@ class Post extends Component {
   };
 
   render() {
-    const {post} = this.props;
+    const {post, detailView} = this.props;
     return (
       <div className="post">
         <h2 className="post-title">{post.title}</h2>
-        <h4 className="post-author">{post.author}</h4>
+        <h4 className="post-author">{post.author} {
+          detailView ? (<span className="date">{new Date(post.timestamp).toDateString()}</span>) : (" ")
+        }</h4>
         <p className="post-body">
           {post.body}
         </p>

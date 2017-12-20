@@ -137,3 +137,9 @@ select {
   background: red;
   float: left;
 }
+
+.date {
+  font-style: italic;
+  font-weight: lighter;
+  color: gray;
+}
