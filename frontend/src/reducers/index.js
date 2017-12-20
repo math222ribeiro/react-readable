@@ -5,9 +5,9 @@ import {
   POST_DELETED,
   COMMENTS_LOADED
 } from '../actions';
-import {filterPostsBy, sortPostBy} from '../utils/arrayutil';
+import {filterPostsBy, sortPostBy} from '../utils/functions';
 import {combineReducers} from 'redux';
-import {CHANGE_CATEGORY, CHANGE_ORDER, SET_PARENT_POST, VOTE_COMMENT} from "../actions/index";
+import {ADD_COMMENT, CHANGE_CATEGORY, CHANGE_ORDER, SET_PARENT_POST, VOTE_COMMENT} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -118,6 +118,7 @@ function comments(state = postCommentsInitialState, action) {
       };
 
     case VOTE_COMMENT:
+    case ADD_COMMENT:
       const {comment} = action;
       return {
         ...state,

@@ -46,7 +46,7 @@ class PostDetail extends Component {
                 Post Detail
               </h1>
               <Post post={this.props.post} detailView history={this.props.history}/>
-              <CommentSection loading={this.state.loading} error={this.error}/>
+              <CommentSection />
             </div>
           )
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import {changeCategory, changeSortType, fetchCategoriesRequest} from "../actions/index";
 import {Loading} from "./Loading";
-import {capitalizeFirstLetter} from "../utils/arrayutil";
+import {capitalizeFirstLetter} from "../utils/functions";
 
 class FilterBar extends Component {
   state = {

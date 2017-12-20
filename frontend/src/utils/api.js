@@ -41,3 +41,14 @@ export const voteCommentRequest = (id, option) => (fetch(api + '/comments/' + id
     option: option
   })
 }));
+
+export const addCommentRequest = (comment) => (fetch(api + '/comments', {
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  method: "POST",
+  body: JSON.stringify({
+    ...comment
+  })
+}));

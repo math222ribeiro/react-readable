@@ -9,11 +9,9 @@ class Comments extends Component {
   };
 
   componentDidMount() {
-    const {error, loading, post} = this.props;
-    if (!error && !loading) {
-      this.props.getAllComments(post.id);
-      this.setState({loading: false})
-    }
+    const {post} = this.props;
+    this.props.getAllComments(post.id);
+    this.setState({loading: false})
   }
 
   render() {
