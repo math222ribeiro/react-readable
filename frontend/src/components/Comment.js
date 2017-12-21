@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {voteCommentRequestAction} from "../actions/index";
+import {deleteCommentRequestAction, voteCommentRequestAction} from "../actions/index";
 
 class Comment extends Component {
   state = {
     vote: 'none'
   };
 
-  handleVote(vote) {
+  deleteComment = () => {
+    this.props.deleteComment(this.props.comment.id)
+  };
+
+  handleVote = (vote) => {
     const currentVote = this.state.vote;
     const voteComment = this.props.voteComment;
     const id = this.props.comment.id;
@@ -35,7 +39,7 @@ class Comment extends Component {
     voteComment(id, vote);
 
 
-  }
+  };
 
   render() {
     const {comment} = this.props;
@@ -46,7 +50,7 @@ class Comment extends Component {
         <h3 className="comment-author">{comment.author}</h3>
         <span className="comment-info">{comment.voteScore} points, {new Date(comment.timestamp).toDateString()}</span>
         <div className="comment-btn-container">
-          <button className="comment-btn margin-button">Delete</button>
+          <button className="comment-btn margin-button" onClick={this.deleteComment}>Delete</button>
           <button className="comment-btn">Edit</button>
         </div>
         <p>{comment.body}</p>
@@ -73,7 +77,8 @@ class Comment extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    voteComment: (id, option) => dispatch(voteCommentRequestAction(id, option))
+    voteComment: (id, option) => dispatch(voteCommentRequestAction(id, option)),
+    deleteComment: (id) => dispatch(deleteCommentRequestAction(id))
   }
 }
 

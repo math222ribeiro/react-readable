@@ -7,7 +7,10 @@ import {
 } from '../actions';
 import {filterPostsBy, sortPostBy} from '../utils/functions';
 import {combineReducers} from 'redux';
-import {ADD_COMMENT, CHANGE_CATEGORY, CHANGE_ORDER, SET_PARENT_POST, VOTE_COMMENT} from "../actions/index";
+import {
+  ADD_COMMENT, CHANGE_CATEGORY, CHANGE_ORDER, DELETE_COMMENT, SET_PARENT_POST,
+  VOTE_COMMENT
+} from "../actions/index";
 
 const categoriesInitialState = {
   all: [],
@@ -123,6 +126,12 @@ function comments(state = postCommentsInitialState, action) {
       return {
         ...state,
         all: sortPostBy("newest", [...state.all.filter((aComment) => comment.id !== aComment.id), comment])
+      };
+    case DELETE_COMMENT:
+      const {deleted} = action;
+      return {
+        ...state,
+        all: sortPostBy("newest", state.all.filter((aComment) => deleted.id !== aComment.id))
       };
     default:
       return state;

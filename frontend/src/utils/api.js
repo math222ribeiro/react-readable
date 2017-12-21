@@ -52,3 +52,10 @@ export const addCommentRequest = (comment) => (fetch(api + '/comments', {
     ...comment
   })
 }));
+
+export const deleteCommentRequest = (id) => (
+  fetch(api + '/comments/' + id, {
+    headers: headers,
+    method: "DELETE"
+  })
+);
