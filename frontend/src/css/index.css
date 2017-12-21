@@ -206,3 +206,7 @@ textarea {
 .margin-button {
   margin-right: 25px;
 }
+
+button {
+  cursor: pointer;
+}

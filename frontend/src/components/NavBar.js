@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import PlusSign from '../assets/Plus-Sign.png';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {changeCategory} from "../actions/index";
 
 class NavBar extends Component {
   render() {
     return (
       <header className="nav">
         <div className="logo-container">
-          <Link to="/">Readable</Link>
+          <Link to="/" onClick={() => {this.props.changeCategory('all')}}>Readable</Link>
         </div>
 
         <div className="new-btn">
@@ -21,4 +23,10 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar
+function mapDispatchToProps(dispatch) {
+  return {
+    changeCategory: (newCategory) => dispatch(changeCategory(newCategory))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NavBar);

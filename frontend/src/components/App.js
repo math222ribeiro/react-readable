@@ -14,14 +14,25 @@ class App extends Component {
         <NavBar />
         <div className="container">
           <Switch>
+            <Route exact path="/" render={({history, match}) => (
+              <div>
+                <FilterBar history={history}/>
+                <Posts history={history} match={match}/>
+              </div>
+            )}/>
+
             <Route exact path="/new" component={NewPostForm}/>
-            <Route exact path="/:category" component={FilterBar}/>
+
+            <Route exact path="/:category" render={({history, match}) => (
+              <div>
+                <FilterBar history={history}/>
+                <Posts history={history} match={match}/>
+              </div>
+            )}/>
+
+            <Route exact path={'/:category/:post_id'} component={PostDetail}/>
           </Switch>
 
-          <Route exact path="/" component={FilterBar}/>
-          <Route exact path="/" component={Posts}/>
-          <Route exact path="/:category" component={Posts}/>
-          <Route exact path={'/:category/:post_id'} component={PostDetail}/>
         </div>
     </div>
     );

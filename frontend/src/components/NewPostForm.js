@@ -1,9 +1,16 @@
 import React, {Component} from 'react'
 import {capitalizeFirstLetter, guid} from "../utils/functions";
 import {connect} from 'react-redux';
-import {addPostRequestAction} from "../actions/index";
+import {addPostRequestAction, changeCategory, fetchCategoriesRequest} from "../actions/index";
 
 class NewPostForm extends Component {
+
+  componentDidMount() {
+    if (!this.props.loaded) {
+      this.props.fetchCategories();
+    }
+  }
+
   handleAddPost = (event) => {
     event.preventDefault();
     let title = this.titleInput.value;
@@ -24,6 +31,7 @@ class NewPostForm extends Component {
       });
       alert('Post added!');
       this.props.history.push('/');
+      this.props.changeCategory('all');
     }
   };
 
@@ -62,12 +70,15 @@ class NewPostForm extends Component {
 function mapStateToProps({ categories }) {
   return {
     categories: categories.all,
+    loaded: categories.loaded
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    addPost: (post) => dispatch(addPostRequestAction(post))
+    addPost: (post) => dispatch(addPostRequestAction(post)),
+    changeCategory: (newCategory) => dispatch(changeCategory(newCategory)),
+    fetchCategories: () => dispatch(fetchCategoriesRequest())
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NewPostForm);
