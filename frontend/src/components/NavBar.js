@@ -11,10 +11,10 @@ class NavBar extends Component {
         </div>
 
         <div className="new-btn">
-          <a href="">
+          <Link to="/new">
             <img src={PlusSign} alt="New Post"/>
             <span className="new-text">New</span>
-          </a>
+          </Link>
         </div>
       </header>
     )

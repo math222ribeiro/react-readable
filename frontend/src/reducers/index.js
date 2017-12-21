@@ -8,7 +8,7 @@ import {
 import {filterPostsBy, sortPostBy} from '../utils/functions';
 import {combineReducers} from 'redux';
 import {
-  ADD_COMMENT, CHANGE_CATEGORY, CHANGE_ORDER, DELETE_COMMENT, SET_PARENT_POST,
+  ADD_COMMENT, ADD_POST, CHANGE_CATEGORY, CHANGE_ORDER, DELETE_COMMENT, SET_PARENT_POST,
   VOTE_COMMENT
 } from "../actions/index";
 
@@ -21,7 +21,8 @@ const postsInitialState = {
   filteredPosts: [],
   loaded: false,
   sortedBy: "newest",
-  categorySelected: "all"
+  categorySelected: "all",
+  isOnPostForm: false
 };
 
 const postCommentsInitialState = {
@@ -97,6 +98,17 @@ function posts(state = postsInitialState, action) {
         filteredPosts: filterPostsBy(
           state.categorySelected,
           sortPostBy(state.sortedBy, array.slice())
+        )
+      };
+
+    case ADD_POST:
+      const newPost = action.post;
+      return {
+        ...state,
+        all: [...state.all, newPost],
+        filteredPosts: filterPostsBy(
+          state.categorySelected,
+          sortPostBy(state.sortedBy, [...state.all.slice(), newPost])
         )
       };
     default:

@@ -16,8 +16,9 @@ class FilterBar extends Component {
   };
 
   handleChangeCategoriesSelect = (event) => {
-    const selectedCategory = event.target.value;
+    let selectedCategory = event.target.value;
     this.props.changeCategory(selectedCategory);
+    if (selectedCategory === 'all') selectedCategory = '';
     this.props.history.push('/' + selectedCategory);
   };
 

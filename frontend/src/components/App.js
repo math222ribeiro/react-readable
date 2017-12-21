@@ -4,6 +4,8 @@ import FilterBar from "./FilterBar";
 import Posts from "./Posts";
 import {Route} from 'react-router-dom';
 import PostDetail from "./PostDetail";
+import NewPostForm from "./NewPostForm";
+import {Switch} from 'react-router-dom';
 
 class App extends Component {
   render() {
@@ -11,13 +13,14 @@ class App extends Component {
      <div>
         <NavBar />
         <div className="container">
-          {['/', '/:category'].map(path => (
-            <div key={path}>
-              <Route exact path={path} component={FilterBar}/>
-              <Route exact path={path} component={Posts}/>
-            </div>
-          ))}
+          <Switch>
+            <Route exact path="/new" component={NewPostForm}/>
+            <Route exact path="/:category" component={FilterBar}/>
+          </Switch>
 
+          <Route exact path="/" component={FilterBar}/>
+          <Route exact path="/" component={Posts}/>
+          <Route exact path="/:category" component={Posts}/>
           <Route exact path={'/:category/:post_id'} component={PostDetail}/>
         </div>
     </div>

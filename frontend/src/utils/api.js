@@ -59,3 +59,14 @@ export const deleteCommentRequest = (id) => (
     method: "DELETE"
   })
 );
+
+export const addPostRequest = (post) => (fetch(api + '/posts', {
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  method: "POST",
+  body: JSON.stringify({
+    ...post
+  })
+}));
