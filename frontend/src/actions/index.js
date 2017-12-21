@@ -1,6 +1,7 @@
 import {
   addCommentRequest, addPostRequest, deleteCommentRequest,
-  deletePostRequest, editCommentRequest, fetchCategories, fetchPosts, getPostComments, voteCommentRequest,
+  deletePostRequest, editCommentRequest, editPostRequest, fetchCategories, fetchPosts, getPostComments,
+  voteCommentRequest,
   votePostRequest
 } from "../utils/api";
 
@@ -17,6 +18,7 @@ export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
 export const ADD_POST = "ADD_POST";
 export const EDIT_COMMENT = "EDIT_COMMENT";
+export const EDIT_POST = "EDIT_POST";
 
 export const loadCategories = categories => ({
   type: CATEGORIES_LOADED,
@@ -143,4 +145,15 @@ export const editCommentRequestAction = (id, comment) => dispatch => (
   editCommentRequest(id, comment)
     .then(res => res.json())
     .then(comment => dispatch(editCommentAction(comment)))
+);
+
+export const editPostAction = (post) => ({
+  type: EDIT_POST,
+  post
+});
+
+export const editPostRequestAction = (id, post) => dispatch => (
+  editPostRequest(id, post)
+    .then(res => res.json())
+    .then(post => dispatch(editPostAction(post)))
 );

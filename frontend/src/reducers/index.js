@@ -8,7 +8,7 @@ import {
 import {filterPostsBy, sortPostBy} from '../utils/functions';
 import {combineReducers} from 'redux';
 import {
-  ADD_COMMENT, ADD_POST, CHANGE_CATEGORY, CHANGE_ORDER, DELETE_COMMENT, EDIT_COMMENT, SET_PARENT_POST,
+  ADD_COMMENT, ADD_POST, CHANGE_CATEGORY, CHANGE_ORDER, DELETE_COMMENT, EDIT_COMMENT, EDIT_POST, SET_PARENT_POST,
   VOTE_COMMENT
 } from "../actions/index";
 
@@ -59,6 +59,7 @@ function posts(state = postsInitialState, action) {
         loaded: true
       };
     case VOTE_POST:
+    case EDIT_POST:
       const {post} = action;
       const newArray = [...state.all.filter((aPost) => post.id !== aPost.id), post];
       return {
@@ -151,6 +152,17 @@ function comments(state = postCommentsInitialState, action) {
       return {
         ...state,
         all: sortPostBy("newest", [...state.all.filter((aComment) => edited.id !== aComment.id), edited])
+      };
+
+    case EDIT_POST:
+      const editedPost = action.post;
+      let parentPost = Object.assign({}, state.parentPost);
+      if (state.parentPost.id === editedPost.id) {
+        parentPost = editedPost
+      }
+      return {
+        ...state,
+        parentPost
       };
     default:
       return state;

@@ -81,3 +81,14 @@ export const editCommentRequest = (id, comment) => (fetch(api + '/comments/' + i
     ...comment
   })
 }));
+
+export const editPostRequest = (id, post) => (fetch(api + '/posts/' + id, {
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json'
+  },
+  method: "PUT",
+  body: JSON.stringify({
+    ...post
+  })
+}));
